@@ -3,8 +3,9 @@ import dotenv from "dotenv";
 import { Server } from "http";
 dotenv.config();
 import { globalEroorHandler } from "./app/middleware/globalEroorHandler";
-import { notFoundHandler } from "./app/middleware/notFound";
+
 import app from "./app/app";
+import { notFoundHandler } from "./app/middlewares/notFound";
 
 let server;
 
@@ -21,8 +22,6 @@ mongoose
     console.log(error.message);
   });
 
-// global eroor handler whith middleware
-app.use(globalEroorHandler);
 // notFound  handler
 app.use(notFoundHandler);
 
