@@ -1,11 +1,9 @@
-import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { Server } from "http";
+import mongoose from "mongoose";
 dotenv.config();
-import { globalEroorHandler } from "./app/middleware/globalEroorHandler";
 
-import app from "./app/app";
-import { notFoundHandler } from "./app/middlewares/notFound";
+import app from "./app.js";
+import { notFoundHandler } from "./app/middlewares/notFound.js";
 
 let server;
 
@@ -25,16 +23,16 @@ mongoose
 // notFound  handler
 app.use(notFoundHandler);
 
-process.on("unhandledRejection", (promise, error) => {
-  console.log(
-    "unhandledRejection detected :" + promise + "the error is:" + error
-  );
-  if (server) {
-    server.close();
-    process.exit(1);
-  }
-});
-process.on("uncaughtException", (err) => {
-  console.log("uncaughtException detected" + err);
-  process.exit(1);
-});
+// process.on("unhandledRejection", (promise, error) => {
+//   console.log(
+//     "unhandledRejection detected :" + promise + "the error is:" + error
+//   );
+//   if (server) {
+//     server.close();
+//     process.exit(1);
+//   }
+// });
+// process.on("uncaughtException", (err) => {
+//   console.log("uncaughtException detected" + err);
+//   process.exit(1);
+// });

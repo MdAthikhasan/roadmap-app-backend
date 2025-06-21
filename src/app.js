@@ -1,8 +1,8 @@
-import express from "express";
 import cookieParser from "cookie-parser";
-const app = express();
 import cors from "cors";
-import router from "./app/routes/routes";
+import express from "express";
+import router from "./app/routes/routes.js";
+const app = express();
 
 //Middleware to parse JSON request to body
 app.use(express.json());
@@ -10,6 +10,6 @@ app.use(cors());
 // cookie parser
 app.use(cookieParser());
 // Application level router
-app.use("/api/v1", router);
+app.use("/api/", router);
 
 export default app;

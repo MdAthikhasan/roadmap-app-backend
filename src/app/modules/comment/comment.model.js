@@ -5,6 +5,7 @@ const commentSchema = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectId, required: true },
     roadmapItemId: {
       type: mongoose.Schema.Types.ObjectId,
+      required: true,
     },
     text: { type: String, required: true, maxlength: 300 },
     replies: [

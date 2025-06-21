@@ -1,14 +1,16 @@
 {
   "name": "roadmap-app",
   "version": "1.0.0",
-  "description": "'Ph-university application'",
+  "description": "A roadmap application backend",
   "main": "./src/server.js",
+  "type": "module",
   "scripts": {
-    "start": "server.js"
+    "start": "nodemon ./src/server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@auth/express": "^0.10.1",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",

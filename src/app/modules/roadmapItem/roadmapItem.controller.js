@@ -1,9 +1,9 @@
 import httpStatus from "http-status";
-import { RoadmapItem } from "./roadmapItem.model";
-import { sendResponse } from "../../utils/sendResponse";
+import { sendResponse } from "../../utils/sendResponse.js";
+import { RoadmapItem } from "./roadmapItem.model.js";
 
 const getAllRoadmapItems = async (req, res) => {
-  const data = await RoadmapItem.find().populate("Comment");
+  const data = await RoadmapItem.find().populate("comments");
 
   sendResponse(res, {
     status: httpStatus.OK,
@@ -12,5 +12,14 @@ const getAllRoadmapItems = async (req, res) => {
     data: data,
   });
 };
+const insertRoadmapItem = async (req, res) => {
+  const itemData = await RoadmapItem.create(req.body);
 
-export { getAllRoadmapItems };
+  sendResponse(res, {
+    status: httpStatus.OK,
+    success: true,
+    message: "Roadmap item created successfully",
+    data: itemData,
+  });
+};
+export { getAllRoadmapItems, insertRoadmapItem };

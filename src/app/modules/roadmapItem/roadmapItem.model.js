@@ -1,5 +1,5 @@
 // models/RoadmapItem.js
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const roadmapItemSchema = new mongoose.Schema(
   {
@@ -12,7 +12,6 @@ const roadmapItemSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment",
-        required: false,
       },
     ],
   },

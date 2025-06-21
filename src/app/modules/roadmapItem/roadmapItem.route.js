@@ -1,10 +1,12 @@
 import express from "express";
 
-import { getAllRoadmapItems } from "./roadmapItem.controller";
+import {
+  getAllRoadmapItems,
+  insertRoadmapItem,
+} from "./roadmapItem.controller.js";
 const roadmapRouter = express.Router();
 
 roadmapRouter.get("/", getAllRoadmapItems);
+roadmapRouter.post("/create-item", insertRoadmapItem);
 
-roadmapRouter.delete("/:id", deleteFaculty);
-
-export default  roadmapRouter;
+export default roadmapRouter;
