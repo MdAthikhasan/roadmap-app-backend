@@ -72,18 +72,18 @@ const loginController = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "10d",
     });
-    res.cookie("token", token, {
-      sameSite: "None",
-      secure: true,
-      path: "/",
-      maxAge: 10 * 24 * 60 * 60 * 1000,
-    });
+    // res.cookie("token", token, {
+    //   sameSite: "None",
+    //   secure: true,
+    //   path: "/",
+    //   maxAge: 10 * 24 * 60 * 60 * 1000,
+    // });
 
     sendResponse(res, {
       status: 200,
       success: true,
       message: "Login successfully",
-      data: user,
+      data: token,
     });
   } catch (error) {
     sendResponse(res, {
@@ -96,12 +96,6 @@ const loginController = async (req, res) => {
 };
 const logoutController = (req, res) => {
   try {
-    res.clearCookie("token", {
-      sameSite: "None",
-      secure: true,
-      path: "/",
-    });
-    console.log("logout");
     sendResponse(res, {
       status: 200,
       success: true,

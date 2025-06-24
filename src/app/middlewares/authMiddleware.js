@@ -2,11 +2,20 @@ import jwt from "jsonwebtoken";
 import { sendResponse } from "../utils/sendResponse.js";
 
 export const authMiddleware = (req, res, next) => {
+  const authHeader = req.headers.authorization;
   try {
-    const token = req.cookies.token;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return sendResponse(res, {
+        status: 401,
+        success: false,
+        message: "You are not authenticated plz sign-in",
+        data: null,
+      });
+    }
+
+    const token = authHeader.split(" ")[1];
 
     if (!token) {
-      console.log("authmiddleware not called", token);
       return sendResponse(res, {
         status: 404,
         success: false,
