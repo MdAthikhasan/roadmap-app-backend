@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://roadmapapp-front-end.vercel.app/",
+    origin: "https://roadmapapp-front-end.vercel.app", // not "*"
     credentials: true,
   })
 );
