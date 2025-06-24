@@ -73,9 +73,12 @@ const loginController = async (req, res) => {
       expiresIn: "10d",
     });
     res.cookie("token", token, {
+      sameSite: "None",
+      secure: true,
       path: "/",
       maxAge: 10 * 24 * 60 * 60 * 1000,
     });
+
     sendResponse(res, {
       status: 200,
       success: true,
@@ -94,6 +97,8 @@ const loginController = async (req, res) => {
 const logoutController = (req, res) => {
   try {
     res.clearCookie("token", {
+      sameSite: "None",
+      secure: true,
       path: "/",
     });
     console.log("logout");
