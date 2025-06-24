@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173", // not "*"
+    origin: "https://roadmapapp-front-end.vercel.app/",
     credentials: true,
   })
 );
