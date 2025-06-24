@@ -1,37 +1,38 @@
+// models/comment.model.js
 import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "UserModel",
+      required: true,
+    },
     roadmapItemId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: "RoadmapItem",
     },
     text: { type: String, required: true, maxlength: 300 },
     replies: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Reply",
-        required: false,
+        ref: "Comment",
       },
     ],
+    parent: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+      default: null,
+    },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
+
 export const Comment = mongoose.model("Comment", commentSchema);
 
-const replySchema = new mongoose.Schema(
-  {
-    user: { type: mongoose.Schema.Types.ObjectId, required: true },
-    commentId: {
-      type: mongoose.Schema.Types.ObjectId,
-    },
-    text: { type: String, required: true, maxlength: 300 },
-  },
-  {
-    timestamps: true,
-  }
-);
-export const Reply = mongoose.model("Reply", replySchema);
+// ,"title":"Add export to Excel feature","description":"Allow users to export their reports to .xlsx files.","category":"Feature",
+
+// "title":"Add export to Excel feature","description":"Allow users to export their reports to .xlsx files.","category":"Feature"
+
+// "title":"Add export to Excel feature","description":"Allow users to export their reports to .xlsx files.","category":"Feature"

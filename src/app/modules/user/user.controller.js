@@ -6,19 +6,34 @@ import { UserModel } from "./user.model.js";
 // SIGNUP
 const signupController = async (req, res) => {
   try {
+    const isExitsedUser = await UserModel.findOne({ email: req.body.email });
+
+    if (isExitsedUser) {
+      return sendResponse(res, {
+        status: 409,
+        success: false,
+        message: "Email already in use!",
+        data: null,
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
     const newUser = await UserModel.create({
       ...req.body,
       password: hashedPassword,
     });
+
     newUser.password = undefined;
+
     sendResponse(res, {
       status: 201,
       success: true,
       message: "User created successfully",
       data: newUser,
     });
-  } catch {
+  } catch (err) {
+    console.error("Signup error:", err.message);
     sendResponse(res, {
       status: 500,
       success: false,
@@ -58,17 +73,14 @@ const loginController = async (req, res) => {
       expiresIn: "10d",
     });
     res.cookie("token", token, {
-      httpOnly: true,
+      path: "/",
       maxAge: 10 * 24 * 60 * 60 * 1000,
     });
     sendResponse(res, {
       status: 200,
       success: true,
       message: "Login successfully",
-      data: {
-        name: user.name,
-        email: user.email,
-      },
+      data: user,
     });
   } catch (error) {
     sendResponse(res, {
@@ -82,11 +94,9 @@ const loginController = async (req, res) => {
 const logoutController = (req, res) => {
   try {
     res.clearCookie("token", {
-      httpOnly: true,
-      // secure: process.env.NODE_ENV === "production",
-      // sameSite: "strict",
+      path: "/",
     });
-
+    console.log("logout");
     sendResponse(res, {
       status: 200,
       success: true,

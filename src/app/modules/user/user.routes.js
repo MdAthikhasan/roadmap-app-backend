@@ -10,7 +10,7 @@ const userRouter = express.Router();
 //army middlewareDef
 
 // route defination
-userRouter.post("/signup", validator(userSchemaValidation), signupController);
-userRouter.post("/login", loginController);
-userRouter.post("/logout", logoutController);
+userRouter.post("/sign_up", validator(userSchemaValidation), signupController);
+userRouter.post("/sign_in", loginController);
+userRouter.post("/log_out", logoutController);
 export default userRouter;

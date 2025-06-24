@@ -1,24 +1,32 @@
 import jwt from "jsonwebtoken";
+import { sendResponse } from "../utils/sendResponse.js";
 
 export const authMiddleware = (req, res, next) => {
   try {
     const token = req.cookies.token;
 
     if (!token) {
-      return res.status(401).json({
+      console.log("authmiddleware not called", token);
+      return sendResponse(res, {
+        status: 404,
         success: false,
-        message: "Access denied. No token provided.",
+        message: "You are not authenticated plz sign-in",
+        data: null,
       });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
+    console.log("authmiddlewarecalled");
 
     next();
   } catch (err) {
-    res.status(401).json({
+    sendResponse(res, {
+      status: 404,
       success: false,
-      message: "Invalid or expired token.",
+      message: "invalid",
+      data: null,
     });
   }
 };
+export default authMiddleware;
