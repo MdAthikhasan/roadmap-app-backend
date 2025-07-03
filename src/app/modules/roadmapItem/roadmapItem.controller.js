@@ -7,8 +7,8 @@ const getAllRoadmapItems = async (req, res) => {
     path: "comments",
     populate: {
       path: "user",
-      model: "UserModel", // 👈 must match your ref name in commentSchema
-      select: "name email", // optional: limit the fields
+      model: "UserModel",
+      select: "name email",
     },
   });
 
@@ -32,7 +32,7 @@ const insertRoadmapItem = async (req, res) => {
 const toggleUpvote = async (req, res) => {
   try {
     const { id } = req.params;
-    const userId = "68561b66f42982eb920bbaa7"; // Assumes auth middleware adds `req.user`
+    const userId = req.user?.userId;
 
     const item = await RoadmapItem.findById(id);
 
@@ -45,13 +45,11 @@ const toggleUpvote = async (req, res) => {
     }
 
     const hasUpvoted = item.upvotedBy?.includes(userId);
-
+    console.log("hasUpvoted", hasUpvoted);
     if (hasUpvoted) {
-      // User has already upvoted — remove the upvote
       item.upvotes--;
       item.upvotedBy.pull(userId);
     } else {
-      // User has not upvoted — add the upvote
       item.upvotes++;
       item.upvotedBy.push(userId);
     }

@@ -2,12 +2,11 @@ import express from "express";
 import { validator } from "../../middlewares/validationRequest.js";
 import {
   loginController,
-  signupController,
   logoutController,
+  signupController,
 } from "./user.controller.js";
 import { userSchemaValidation } from "./user.validation.js";
 const userRouter = express.Router();
-//army middlewareDef
 
 // route defination
 userRouter.post("/sign_up", validator(userSchemaValidation), signupController);

@@ -4,6 +4,7 @@ dotenv.config();
 
 import app from "./app.js";
 import { notFoundHandler } from "./app/middlewares/notFound.js";
+import globarErrorHandler from "./app/middlewares/globarErrorHandler.js";
 
 let server;
 
@@ -23,16 +24,5 @@ mongoose
 // notFound  handler
 app.use(notFoundHandler);
 
-// process.on("unhandledRejection", (promise, error) => {
-//   console.log(
-//     "unhandledRejection detected :" + promise + "the error is:" + error
-//   );
-//   if (server) {
-//     server.close();
-//     process.exit(1);
-//   }
-// });
-// process.on("uncaughtException", (err) => {
-//   console.log("uncaughtException detected" + err);
-//   process.exit(1);
-// });
+//global error handler
+app.use(globarErrorHandler);

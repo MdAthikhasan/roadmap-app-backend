@@ -46,6 +46,7 @@ const signupController = async (req, res) => {
 const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("called");
 
     const user = await UserModel.findOne({ email }).select("+password");
     if (!user) {

@@ -30,9 +30,3 @@ const commentSchema = new mongoose.Schema(
 );
 
 export const Comment = mongoose.model("Comment", commentSchema);
-
-// ,"title":"Add export to Excel feature","description":"Allow users to export their reports to .xlsx files.","category":"Feature",
-
-// "title":"Add export to Excel feature","description":"Allow users to export their reports to .xlsx files.","category":"Feature"
-
-// "title":"Add export to Excel feature","description":"Allow users to export their reports to .xlsx files.","category":"Feature"
